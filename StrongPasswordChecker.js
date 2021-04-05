@@ -4,6 +4,16 @@ const lengthInRange = (password) => password.length >= 6 && password.length <= 2
 const hasUpperCaseLetter = (password) => password.toLowerCase() != password;
 const hasLowerCaseLetter = (password) => password.toUpperCase() != password;
 const hasOneDigit = (password) => /\d/.test(password);
+const hasRepetitiveCharacters = (password) => {
+    for (let i = 0; i < password.length; i++) {
+        if (!password[i + 1] || !password[i + 2]) break;
+        if (password[i] === password[i + 1] && password[i] === password[i + 2]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**
  * @param {string}
  * @return {number}
@@ -14,6 +24,7 @@ const hasOneDigit = (password) => /\d/.test(password);
     if (!hasUpperCaseLetter(password)) stepCount++;
     if (!hasLowerCaseLetter(password)) stepCount++;
     if (!hasOneDigit(password)) stepCount++;
+    if (hasRepetitiveCharacters(password)) stepCount++;
     return stepCount;
 };
 
